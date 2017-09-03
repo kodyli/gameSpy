@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <title>Game Spy</title>
+  <script type='text/javascript' src='/js/app.js'></script>
+  <link rel="stylesheet" type="text/css" href="/css/app.css">
+  <style type="text/css">
+    .navbar-fixed-top-padding {
+      padding-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="#home" data-toggle="collapse" data-target=".navbar-collapse" data-parent=".collapseContent">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li>
+            <a href="#team" data-toggle="collapse" data-target=".navbar-collapse" data-parent="#collapseContent">Team</a>
+          </li>
+          <li>
+            <a href="#chamption" data-toggle="collapse" data-target=".navbar-collapse" data-parent="#collapseContent">Chamption</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#login" data-toggle="collapse" data-target=".navbar-collapse">Login</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav>
+
+  <div id="collapseContent" class="container">
+    <div id="home" class="panel col-md-4 navbar-fixed-top-padding">
+      <form class="form-horizontal">
+        <div class="form-group has-success has-feedback">
+          <label class="control-label col-sm-3" for="inputSuccess3">Input with success</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="inputSuccess3" aria-describedby="inputSuccess3Status">
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+            <span id="inputSuccess3Status" class="sr-only">(success)</span>
+          </div>
+        </div>
+        <div class="form-group has-success has-feedback">
+          <label class="control-label col-sm-3" for="inputGroupSuccess2">Input group with success</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input type="text" class="form-control" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status">
+            </div>
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+            <span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="team" class=" panel col-md-4 navbar-fixed-top-padding">
+      <h4>Static</h4>
+      <div>
+        <div style="background-image:url(img/iceland.jpg);"></div>
+        <div>
+          <a href="profile/index.html">
+            <img class="img-circle" src="img/avatar-dhg.png">
+          </a>
+
+          <h6>
+            <a class="bph" href="profile/index.html">Dave Gamache</a>
+          </h6>
+
+          <p>I wish i was a little bit taller, wish i was a baller, wish i had a girl…&nbsp;also.</p>
+
+          <ul>
+            <li>
+              <a href="#userModal" class="bph" data-toggle="modal">
+                Friends
+                <h6 class="afl">12M</h6>
+              </a>
+            </li>
+
+            <li>
+              <a href="#userModal" class="bph" data-toggle="modal">
+                Enemies
+                <h6>1</h6>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="chamption" class="panel col-md-4 navbar-fixed-top-padding">
+      <h4>Team vs Enemy</h4>
+    </div>
+  </div>
+</body>
+</html>
