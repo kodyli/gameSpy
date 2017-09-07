@@ -3,9 +3,6 @@ namespace App\Src\Classes;
 
 use App\Src\Contracts\IAbility;
 
-/**
-* 
-*/
 abstract class AbilityAbstract implements IAbility{
 
 	private $name;
@@ -19,6 +16,7 @@ abstract class AbilityAbstract implements IAbility{
 	private $costBurn;
 
 	private $_compiledTooltip;
+	
 
 	public function __construct($argument){
 		foreach ($argument as $key => $value) {
@@ -34,9 +32,11 @@ abstract class AbilityAbstract implements IAbility{
 		return $this->description;
 	}
 	
+	
+
 	public function getTooltip(){
 		if($this->_compiledTooltip==null){
-			$this->_compiledTooltip = $this->compileTooltip();
+			$this->compileTooltip();
 		}
 		return $this->_compiledTooltip;
 	}
@@ -46,6 +46,12 @@ abstract class AbilityAbstract implements IAbility{
 	}
 
 	protected abstract function getImageBaseUrl();
+
+
+	private function getDamageType(){
+
+		
+	}
 
 	private function compileTooltip(){
 		$effectBurn = $this->effectBurn;
@@ -62,12 +68,8 @@ abstract class AbilityAbstract implements IAbility{
 					# code...
 					break;
 			}
-			
 			return $text;
 		};
-	
-		return preg_replace_callback($pattern,$callBack,$this->tooltip);
-		//return $this->effectBurn[intval('2')];
-		//return intval('2');
+		$this->_compiledTooltip = preg_replace_callback($pattern,$callBack,$this->tooltip);
 	}
 }

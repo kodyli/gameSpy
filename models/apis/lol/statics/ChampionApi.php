@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Cache;
 
 class ChampionApi extends LolApi{	
 	public $id;
-	private $url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions';
+	const URL = 'https://na1.api.riotgames.com/lol/static-data/v3/champions';
 	public function __construct(){
-		
+		parent::__construct();
+		$this->setUrl(self::URL);
 	}
 
 	public function withChampionId($id){
@@ -22,7 +23,7 @@ class ChampionApi extends LolApi{
 	}
 
 	public function get(){
-		$api = "{$this->url}/{$this->id}";
+		$api = $this->getFullUrl();
 		if (!Cache::has($api)){
 			$a =Curl::to($api)
         	->withHeader('X-Riot-Token:'.LolApi::API_KEY)
@@ -43,6 +44,11 @@ class ChampionApi extends LolApi{
         ->withData(array('locale' => 'en_US'))
         ->get();
 	}
+
+	private function getFullUrl(){
+		return "{$this->getUrl()}/{$this->id}";
+	}
+
 
 	public static function find(){
 		return new ChampionApi();

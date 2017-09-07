@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\LolService;
+use App\Http\Requests\SearchRequest;
 
 class LolController extends Controller {
     protected $lolService;
@@ -12,8 +13,17 @@ class LolController extends Controller {
 	}
 
     public function index(){
-    	$champion=$this->lolService->getActiveGame();
-    	return view('lol')->with(['champion'=>$champion]);
+        return view('index');
+    }
+
+    public function getParticipantInfo(SearchRequest $searchRequest){
+        $participant = $this->lolService->getParticipantInfo($searchRequest);
+        return view('game')->with(['participant'=>$participant]);
+    }
+
+    public function champion(){
+        $champion=$this->lolService->getChampion(110);
+        return view('champion')->with(['champion'=>$champion]);
     }
 
     public function debug(){
