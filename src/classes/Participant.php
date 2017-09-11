@@ -1,6 +1,8 @@
 <?php
 namespace App\Src\Classes;
 
+use App\Models\Apis\Lol\Statics\ChampionApi;
+
 class Participant{
 	private $teamId;
 	private $spell1Id;
@@ -14,10 +16,6 @@ class Participant{
 	private $_allies;
 	private $_enemies;
 
-	/*public function __construct(Summoner $summoner){
-		$this->_summoner = $summoner;
-	}*/
-	
 	public function __construct($participantDto){
 		$className = get_class($this);
 		foreach ($participantDto as $key => $value) {
@@ -26,8 +24,16 @@ class Participant{
 			}
 		}
 	}
+	public function getChampion(){
+		return ChampionApi::find()->withChampionId($this->championId)->get();
+	}
+	public function getSummonerId(){
+		return $this->summonerId;
+	}
 
-
+	public function getTeamId(){
+		return $this->teamId;
+	}
 	public function getAllies($participants){
 
 	}

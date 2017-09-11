@@ -10,10 +10,11 @@ use App\Src\Classes\Participant;
 class LolService extends Service{
 	public function __construct(){}
 
-	public function getParticipantInfo(SearchRequest $searchRequest){
-		$summoner = SummonerApi::find($searchRequest->input('region'))->getSummoner($searchRequest->input('summonerName'));
-		//$game = GameApi::find()->getGame($summoner);
-		return $summoner;
+	public function getGameInfo(SearchRequest $searchRequest){
+		$region = $searchRequest->input('region');
+		$summoner = SummonerApi::find($region)->getSummoner($searchRequest->input('summonerName'));
+		$game = GameApi::find($region)->getGame($summoner);
+		return $game;
 	}
 
 	/*public function getActiveGame($summonerId){

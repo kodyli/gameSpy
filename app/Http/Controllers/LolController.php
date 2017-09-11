@@ -17,9 +17,15 @@ class LolController extends Controller {
     }
 
     public function getParticipantInfo(SearchRequest $searchRequest){
-        $participant = $this->lolService->getParticipantInfo($searchRequest);
-        return view('game')->with(['participant'=>$participant]);
+        $game = $this->lolService->getGameInfo($searchRequest);
+        return view('game')->with(['game'=>$game]);
     }
+
+
+
+
+
+
 
     public function champion(){
         $champion=$this->lolService->getChampion(110);

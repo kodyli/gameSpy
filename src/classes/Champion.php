@@ -39,7 +39,9 @@ class Champion implements IChampion{
 	public function getId(){
 		return $this->id;
 	}
-
+	public function getName(){
+		return $this->name;
+	}
 	public function getAbilities(){
 		$abilities = array($this->getPassive());
 		foreach ($this->getSpells() as $spell) {
