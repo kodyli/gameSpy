@@ -3,7 +3,54 @@
 }
 .panel{
 	margin-bottom:0px !important;
-}@charset "UTF-8";
+}
+.championImg{
+	width: 120px;
+	height: 120px;
+	border-width: 4px;
+	border-style: solid; 
+	border-radius:50%;
+	position: relative;
+	left: 10px;
+	background-repeat: no-repeat;
+	float: left;
+}
+.championLevel{
+	display: block;
+	position: absolute;
+	bottom: -10px;
+	right: 0px; 
+	width:30px;
+	height:30px;
+	border-width: 3px; 
+	border-style: solid;
+	border-radius: 50%;
+	background-color: white;
+	text-align:center;
+	font-family:inherit;
+	color:inherit;
+}
+.championDesc{
+	padding-left: 140px;
+}
+.championAbility{
+	margin-top: 10px;
+	margin-right: 4px;
+	padding: 1px;
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 4px;
+	display: inline-block;
+	max-width: 15%;
+	height: auto;
+}
+.championAbility.colorFF8C00{
+	border-color:#FF8C00;
+}
+.championAbility.color99FF99{
+	border-color:#99FF99;
+}
+@charset "UTF-8";
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)

@@ -1,13 +1,19 @@
 <div class="list-group-item">
-	<div>
-		<img class="img-circle" src="https://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/{{$champion->image['full']}}" alt="{{$champion->name}}" title="{{$champion->name}}" style="float: left;">
+	<div class="row">
 
-		<div style="display: inline-block;">
-			<h4 class="list-group-item-heading">{{$champion->getName()}}</h4>
-			<p class="list-group-item-text">...</p>
+		<div class="championImg" style="background-image: url(https://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/{{$champion->image['full']}});border-color: {{$borderColor}};" title="{{$champion->name}}">
+			<p class="championLevel" style=" border-color: {{$borderColor}}; " title="Champion Level">20</p>
+		</div>
+
+		<div class="championDesc">
+			<h4>{{$champion->getName()}}</h4>
+			<p>...</p>
 		</div>		
 	</div>
-	<div style="clear: both;">
-		ALILITY
+	<div>
+	  @foreach ($champion->getAbilities() as $ability)
+	      <img class="championAbility" src="{{$ability->getImageUrl()}}" alt="{{$ability->getName()}}" title="{{$ability->getName()}}">
+	      <p>{{$ability->getDamageType()}}</p>
+	  @endforeach  
 	</div>
 </div>

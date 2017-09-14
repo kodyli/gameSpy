@@ -1,5 +1,5 @@
 <pre>
 	<?php
-		print_r ($champion->getAbilities());
+		print_r ($champion);
 	?>
 </pre>

@@ -10,7 +10,7 @@ class Game implements IGame{
 	private $gameMode;
 	private $gameType;
 	private $gameQueueConfigId;
-	private $participants;
+	public $participants;
 	private $observers;
 	private $platformId;
 	private $bannedChampions;
@@ -33,7 +33,7 @@ class Game implements IGame{
 
 		$this->setMap($this->mapId);
 		$this->setSummoner($summoner);
-		$this->setParticipants($this->participants);
+		//$this->setParticipants($this->participants);
 	}
 
 	public function setMap($mapId){

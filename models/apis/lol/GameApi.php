@@ -2,6 +2,7 @@
 namespace App\Models\Apis\Lol;
 
 use App\Models\Apis\Lol\LolApi;
+use Carbon\Carbon;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\Cache;
 use App\Src\Classes\Game;
@@ -24,11 +25,13 @@ class GameApi extends LolApi{
         	->withHeader('X-Riot-Token:'.LolApi::API_KEY)
         	->withContentType('application/json')
         	->get();
-        	Cache::forever($api, $a);
+
+        	$expiresAt = Carbon::now()->addMinutes(10);
+			Cache::put($api, $a, $expiresAt);
 		}
 		$json = json_decode(Cache::get($api),true);
         $game = new Game($json,$summoner);
-        return $game;
+        return $json;
 	}
 
 	private function getFullUrl($summonerId){

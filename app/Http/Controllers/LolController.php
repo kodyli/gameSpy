@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Http\Services\LolService;
 use App\Http\Requests\SearchRequest;
@@ -21,19 +21,17 @@ class LolController extends Controller {
         return view('game')->with(['game'=>$game]);
     }
 
-
-
-
-
-
-
     public function champion(){
         $champion=$this->lolService->getChampion(110);
         return view('champion')->with(['champion'=>$champion]);
     }
 
     public function debug(){
-    	$champion=$this->lolService->getActiveGame();
-    	return view('debug')->with(['champion'=>$champion]);
+    	$game = $this->lolService->getActiveGame();
+    	return view('debug')->with(['champion'=>$game]);
+    }
+
+    public function clearData(){
+        Cache::flush();
     }
 }

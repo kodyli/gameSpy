@@ -2,6 +2,7 @@
 namespace App\Src\Classes;
 
 use App\Src\Contracts\IAbility;
+use App\Src\Classes\DamageType;
 
 abstract class AbilityAbstract implements IAbility{
 
@@ -16,12 +17,13 @@ abstract class AbilityAbstract implements IAbility{
 	private $costBurn;
 
 	private $_compiledTooltip;
-	
+	private $_damageType;
 
 	public function __construct($argument){
 		foreach ($argument as $key => $value) {
 			$this->{$key} = $value;
 		}
+		//$this->setDamageType();
 	}
 
 	public function getName(){
@@ -32,8 +34,6 @@ abstract class AbilityAbstract implements IAbility{
 		return $this->description;
 	}
 	
-	
-
 	public function getTooltip(){
 		if($this->_compiledTooltip==null){
 			$this->compileTooltip();
@@ -41,17 +41,22 @@ abstract class AbilityAbstract implements IAbility{
 		return $this->_compiledTooltip;
 	}
 
+	public function getDamageType(){
+		return $this->_damageType;
+	}
+
+	public function setDamageType($type=null){
+		if($type==null){
+			$type=DamageType::getDamageType($this->getTooltip());
+		}
+		$this->_damageType=$type;
+	}
+
 	public function getImageUrl(){
 		return $this->getImageBaseUrl().'/'.$this->image['full'];
 	}
 
 	protected abstract function getImageBaseUrl();
-
-
-	private function getDamageType(){
-
-		
-	}
 
 	private function compileTooltip(){
 		$effectBurn = $this->effectBurn;

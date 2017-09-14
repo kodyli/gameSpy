@@ -2,11 +2,9 @@
 namespace App\Src\Classes;
 
 final class DamageType{
-	public const PHYSICAL_DAMAGE ='Physical Damage';
-	public const MAGIC_DAMAGE ='Magic Damage';
-	public const TRUE_DAMAGE ='True Damage';
-
-
+	const PHYSICAL_DAMAGE ='colorFF8C00';
+	const MAGIC_DAMAGE ='color99FF99';
+	const TRUE_DAMAGE ='true';
 
 	public static getDamageType($tooltip){
 		if(self::isPhysicalDamage($tooltip)){
@@ -18,15 +16,16 @@ final class DamageType{
 		}else{
 			return '';
 		}
+		return '';
 	}
 
 	private static function isPhysicalDamage($tooltip){
-
-
-
+		return strpos($tooltip,self::PHYSICAL_DAMAGE)>0;
 	}
 
-	private static function isMagicDamage($tooltip){}
+	private static function isMagicDamage($tooltip){
+		return strpos($tooltip,self::MAGIC_DAMAGE)>0;
+	}
 
 	private static function isTrueDamage($tooltip){
 

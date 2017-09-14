@@ -14,6 +14,7 @@ Route::get('/', 'LolController@index');
 Route::get('/getParticipantInfo', 'LolController@getParticipantInfo');
 Route::get('/champion', 'LolController@champion');
 Route::get('/debug', 'LolController@debug');
+Route::get('/clearData', 'LolController@clearData');
 /*
 Route::get('/', function () {
     return view('lol');

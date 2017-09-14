@@ -17,9 +17,11 @@ class LolService extends Service{
 		return $game;
 	}
 
-	/*public function getActiveGame($summonerId){
-		return GameApi::find()->getGame($summonerId);
-	}*/
+	public function getActiveGame(){
+		$summoner = SummonerApi::find('na1')->getSummoner('BlackGuy07');
+		$game = GameApi::find('na1')->getGame($summoner);
+		return $game;
+	}
 
 	public function getChampion($id){
 		return ChampionApi::find()->withChampionId($id)->get();

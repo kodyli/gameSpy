@@ -10,6 +10,6 @@
 
 @section('participants')
     @foreach ($enemies as $enemy)
-		@component('./layouts/champion',['champion'=>$enemy->getChampion()])@endcomponent
+		@component('./layouts/champion',['champion'=>$enemy->getChampion(),'borderColor'=>'#EBCCD2'])@endcomponent
 	@endforeach
 @overwrite
