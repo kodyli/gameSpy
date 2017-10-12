@@ -1,34 +1,39 @@
 <?php
 namespace App\Src\Classes;
 
-final class DamageType{
-	const PHYSICAL_DAMAGE ='colorFF8C00';
-	const MAGIC_DAMAGE ='color99FF99';
-	const TRUE_DAMAGE ='true';
+class DamageType{
+	const PHYSICAL_DAMAGE ='physical Damage';
+	const MAGIC_DAMAGE ='magic damage';
+	const TRUE_DAMAGE ='true damage';
 
-	public static getDamageType($tooltip){
+	public static function getDamageTypeCss($tooltip){
+		//echo '$tooltip'+$tooltip;
+		$className = '';
 		if(self::isPhysicalDamage($tooltip)){
-			return self::PHYSICAL_DAMAGE;
+			$className =$className.'physicalDamage ';
+			//echo ' physicalDamage';
 		}else if(self::isMagicDamage($tooltip)){
-			return self::MAGIC_DAMAGE;
+			$className =$className.'magicDamage ';
+			//echo ' magicDamage';
 		}else if(self::isTrueDamage($tooltip)){
-			return self::TRUE_DAMAGE;
+			$className =$className.'trueDamage';
+			//echo ' trueDamage';
 		}else{
-			return '';
+			$className = '';
 		}
-		return '';
+		return $className;
 	}
 
 	private static function isPhysicalDamage($tooltip){
-		return strpos($tooltip,self::PHYSICAL_DAMAGE)>0;
+		return stripos($tooltip,self::PHYSICAL_DAMAGE) !== false;
 	}
 
 	private static function isMagicDamage($tooltip){
-		return strpos($tooltip,self::MAGIC_DAMAGE)>0;
+		return stripos($tooltip,self::MAGIC_DAMAGE) !== false;
 	}
 
 	private static function isTrueDamage($tooltip){
-
+		return stripos($tooltip,self::TRUE_DAMAGE) !== false;
 	}
 	
 }

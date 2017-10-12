@@ -35,4 +35,10 @@ $input-border-focus: lighten($brand-primary, 25%);
 $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
-$panel-default-heading-bg: #fff;
+
+$panel-primary-text:          #fff !default;
+$panel-primary-border:        $brand-primary !default;
+
+$panel-danger-text:           #fff !default;
+$panel-danger-border:         #d43f3a !default;
+$panel-danger-heading-bg:	  #d9534f !default;

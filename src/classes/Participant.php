@@ -13,8 +13,6 @@ class Participant{
 	private $masteries;
 
 	private $_summoner;
-	private $_allies;
-	private $_enemies;
 
 	public function __construct($participantDto){
 		$className = get_class($this);
@@ -25,7 +23,7 @@ class Participant{
 		}
 	}
 	public function getChampion(){
-		return ChampionApi::find()->withChampionId($this->championId)->get();
+		return ChampionApi::find()->withChampionId($this->championId)->withSummonerId($this->summonerId)->get();
 	}
 	public function getSummonerId(){
 		return $this->summonerId;
@@ -34,9 +32,4 @@ class Participant{
 	public function getTeamId(){
 		return $this->teamId;
 	}
-	public function getAllies($participants){
-
-	}
-
-	public function getEnemies($participants){}
 }

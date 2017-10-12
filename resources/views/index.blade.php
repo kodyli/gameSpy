@@ -11,20 +11,20 @@
 	<script type='text/javascript' src='/js/app.js'></script>
 	<link rel='stylesheet' type='text/css' href='/css/app.css'>
 </head>
-<body>
-	<form class='form-horizontal' method='GET' action='/getParticipantInfo'>
+<body class='container'>
+	<form class='form-horizontal center-vertically' method='GET' action='/getGameInfo'>
 		<div class='form-group'>
-		<label for='region' class='col-sm-2 control-label'>Region</label>
+			<label for='region' class='col-sm-2 control-label'>Region</label>
 			<div class='col-sm-10'>
 				<select name='region' id='region' class='form-control'>
-					<option value='BR1'>Brazil</option>
-					<option value='EUN1'>EU Nordic &amp; East</option>
-					<option value='LA1'>Latin America (North)</option>
-					<option value='LA2'>Latin America (South)</option>
-					<option value='NA1'>North America</option>
-					<option value='OC1'>Oceania</option>
-					<option value='RU'>Russia</option>
-					<option value='TR1'>Turkey</option>
+					<option value='br1'>Brazil</option>
+					<option value='eun1'>EU Nordic &amp; East</option>
+					<option value='la1'>Latin America (North)</option>
+					<option value='la2'>Latin America (South)</option>
+					<option value='na1'>North America</option>
+					<option value='oc1'>Oceania</option>
+					<option value='ru'>Russia</option>
+					<option value='tr1'>Turkey</option>
 				</select>
 			</div>
 		</div>
@@ -34,6 +34,15 @@
 				<input name='summonerName' required type='text' class='form-control' id='summonerName' placeholder='Summoner Name'>
 			</div>
 		</div>
+		<!-- <div class='form-group'>
+			<label for='local' class='col-sm-2 control-label'>Language</label>
+			<div class='col-sm-10'>
+				<select name='local' id='local' class='form-control'>
+					<option value='en_US' selected>en_US</option>
+					<option value='zh_CN'>zh_CN</option>
+				</select>
+			</div>
+		</div> -->
 		<div class='form-group'>
 			<div class='col-sm-offset-2 col-sm-10'>
 				<button id='submitBtn' type='submit' class='btn btn-default'>Submit</button>

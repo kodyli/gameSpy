@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Cache;
 
 
 class ChampionApi extends LolApi{	
+	private $_summonerId;
 	public $id;
 	const URL = 'https://na1.api.riotgames.com/lol/static-data/v3/champions';
+	
 	public function __construct(){
 		parent::__construct();
 		$this->setUrl(self::URL);
@@ -21,7 +23,10 @@ class ChampionApi extends LolApi{
 		$this->id = $id;
 		return $this;
 	}
-
+	public function withSummonerId($summonerId){
+		$this->_summonerId= $summonerId;
+		return $this;
+	}
 	public function get(){
 		$api = $this->getFullUrl();
 		if (!Cache::has($api)){
@@ -33,7 +38,18 @@ class ChampionApi extends LolApi{
         	Cache::forever($api, $a);
 		}
 		$json = json_decode(Cache::get($api),true);
-        $champion = new Champion($json);
+        
+        $mastery = $this->getChampionMasteryUrl($this->_summonerId,$this->id);
+		if (!Cache::has($mastery)){
+			$m =Curl::to($mastery)
+        	->withHeader('X-Riot-Token:'.LolApi::API_KEY)
+        	->withContentType('application/json')
+        	->withData(array('locale' => 'en_US','tags'=>'all'))
+        	->get();
+        	Cache::forever($mastery, $m);
+		}
+		$jsonM = json_decode(Cache::get($mastery),true);
+		$champion = new Champion($json,$jsonM);
         return $champion;
 	}
 
@@ -52,5 +68,9 @@ class ChampionApi extends LolApi{
 
 	public static function find(){
 		return new ChampionApi();
+	}
+
+	private function getChampionMasteryUrl($summonerId,$championId){
+    	return "https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{$summonerId}/by-champion/{$championId}";
 	}
 }

@@ -33,7 +33,7 @@ class Game implements IGame{
 
 		$this->setMap($this->mapId);
 		$this->setSummoner($summoner);
-		//$this->setParticipants($this->participants);
+		$this->setParticipants($this->participants);
 	}
 
 	public function setMap($mapId){
@@ -57,10 +57,6 @@ class Game implements IGame{
 		return $this->_summoner;
 	}
 
-	/**
-	* set summoner
-	*@var array $participants data from riot
-	*/
 	public function setParticipants($participants){
 		$team100=array("participants"=>array(),"type"=>null);
 		$team200= array("participants"=>array(),"type"=>null);

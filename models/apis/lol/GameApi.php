@@ -26,12 +26,12 @@ class GameApi extends LolApi{
         	->withContentType('application/json')
         	->get();
 
-        	$expiresAt = Carbon::now()->addMinutes(10);
+        	$expiresAt = Carbon::now()->addMinutes(180);
 			Cache::put($api, $a, $expiresAt);
 		}
 		$json = json_decode(Cache::get($api),true);
         $game = new Game($json,$summoner);
-        return $json;
+        return $game;
 	}
 
 	private function getFullUrl($summonerId){

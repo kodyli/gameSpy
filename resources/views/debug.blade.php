@@ -1,5 +1,5 @@
 <pre>
 	<?php
-		print_r ($champion);
+		print_r ($game);
 	?>
 </pre>

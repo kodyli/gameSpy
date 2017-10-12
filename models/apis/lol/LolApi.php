@@ -5,7 +5,7 @@ use App\Models\Apis\Api;
 
 class LolApi extends Api{
 
-	const API_KEY ='RGAPI-101915d7-9f62-4aee-b009-ca81e69c8c5d';
+	const API_KEY ='RGAPI-6ad9b486-46f9-48e0-a0cb-4c3296a39d3e';
 
 	public function __construct(){
 		parent::__construct();

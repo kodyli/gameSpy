@@ -10,7 +10,7 @@ class Passive extends AbilityAbstract{
 	}
 
 	public function getTooltip(){
-		return '';
+		return $this->getDesc();
 	}
 	protected function getImageBaseUrl(){
 		return 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive';

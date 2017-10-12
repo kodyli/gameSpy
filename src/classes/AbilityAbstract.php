@@ -9,21 +9,26 @@ abstract class AbilityAbstract implements IAbility{
 	private $name;
 	private $description;
 	private $tooltip;
-	private $image;
+	public $image;
 
 	private $effectBurn;
 	private $cooldownBurn;
 	private $rangeBurn;
 	private $costBurn;
+	protected $key = null;
 
 	private $_compiledTooltip;
 	private $_damageType;
 
 	public function __construct($argument){
-		foreach ($argument as $key => $value) {
-			$this->{$key} = $value;
+
+		$className = get_class($this);
+		foreach ($argument as $key1 => $value1) {
+			if(property_exists($className,$key1)){
+				$this->{$key1} = $value1;
+			}
 		}
-		//$this->setDamageType();
+		$this->setTooltip();
 	}
 
 	public function getName(){
@@ -33,23 +38,16 @@ abstract class AbilityAbstract implements IAbility{
 	public function getDesc(){
 		return $this->description;
 	}
-	
+	public function setTooltip(){
+		$this->compileTooltip();
+		$this->_compiledTooltip=preg_replace('/<br><br>/', '', $this->_compiledTooltip);
+	}
 	public function getTooltip(){
-		if($this->_compiledTooltip==null){
-			$this->compileTooltip();
-		}
 		return $this->_compiledTooltip;
 	}
 
-	public function getDamageType(){
-		return $this->_damageType;
-	}
-
-	public function setDamageType($type=null){
-		if($type==null){
-			$type=DamageType::getDamageType($this->getTooltip());
-		}
-		$this->_damageType=$type;
+	public function getDamageTypeCss(){
+		return DamageType::getDamageTypeCss($this->getTooltip());
 	}
 
 	public function getImageUrl(){
@@ -76,5 +74,11 @@ abstract class AbilityAbstract implements IAbility{
 			return $text;
 		};
 		$this->_compiledTooltip = preg_replace_callback($pattern,$callBack,$this->tooltip);
+	}
+	public function getKey(){
+		if($this->key == null){
+			$this->key = preg_replace('/[^\w]+/', '', $this->name);
+		}
+		return $this->key;
 	}
 }
