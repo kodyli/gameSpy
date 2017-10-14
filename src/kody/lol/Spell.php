@@ -9,7 +9,7 @@ class Spell extends AAbility {
 
 	public function fillData(array $championSpellDto){
 		parent::fillData($championSpellDto);
-		$this->setToolTip($championSpellDto['tooltip'],$championSpellDto['effectBurn']);
+		$this->setToolTip($championSpellDto['tooltip']);
 	}
 
 	protected function getImageBaseUrl(){

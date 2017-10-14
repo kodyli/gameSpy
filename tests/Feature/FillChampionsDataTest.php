@@ -32,7 +32,7 @@ class FillChampionsDataTest extends TestCase{
     	foreach ($temp_champion as $key => $value){
 			switch ($key) {
 	    		case 'image':
-	    			$values[$key] = $value['full'];
+	    			$values[$key] = $this->filterImage($value);
 	    			break;
     			case 'spells':
     				$values[$key] = $this->filterSpells($value);
@@ -48,24 +48,99 @@ class FillChampionsDataTest extends TestCase{
     	return $values;
     }
     private function filterSpells(array $spells){
-		/*foreach ($value as $spell){
-			foreach ($spell as $sKey => $sValue){
-				switch ($sKey) {
-					case 'value':
-						# code...
+		$newSpells = array();
+		foreach ($spells as $spell) {
+			array_push($newSpells, $this->filterSpell($spell));
+		}
+		return $newSpells;
+    }
+	private function filterSpell(array $spell){
+		$newSpell = array();
+		foreach ($spell as $key => $value) {
+			switch ($key) {
+				case 'sanitizedDescription':
+					break;
+				case 'tooltip':
+					$newSpell[$key] = preg_replace('/<br><br>/', '<br>',  $this->parseToolTip($value,$spell['effectBurn']));
+					break;
+				case 'sanitizedTooltip':
+					break;
+				case 'leveltip':
+					break;
+				case 'image':
+					$newSpell[$key] =$this->filterImage($value);
+					break;
+				case 'resource':
+					break;
+				case 'maxrank':
+					break;
+				case 'cost':
+					break;
+				case 'costType':
+					break;
+				case 'costBurn':
+					break;
+				case 'cooldown':
+					break;
+				case 'cooldownBurn':
+					break;
+				case 'effect':
+					break;
+				case 'effectBurn':
+					break;
+				case 'vars':
+					break;
+				case 'range':
+					break;
+				default:
+					$newSpell[$key]=$value;
+					break;
+			}
+		}
+		return $newSpell;
+	}
+
+	private function parseToolTip(string $toolTip, array $effectBurn){
+		$newToolTip = $toolTip;
+		if(count($effectBurn)>0){
+			$pattern ='|({{\s*)([a-z]+)([1-9]+)(\s*}})|';
+			//{{ e2 }}, matches[1]='{{ ';matches[2]='e';matches[3]='1';matches[4]=' }}';
+			$callBack = function($matches) use($effectBurn){
+				$text ="";
+				switch ($matches[2]) {
+					case 'e':
+						$index = intval($matches[3]);
+						$text=$effectBurn[$index];
 						break;
 					default:
 						# code...
 						break;
 				}
-
-			}
-		}*/
-
-		return $spells;
-    }
+				return $text;
+			};
+			$newToolTip = preg_replace_callback($pattern,$callBack,$toolTip);
+		}
+		return $newToolTip;
+	}
 
     private function filterPassive(array $passive){
-    	return $passive;
+    	$newPassive = array();
+    	foreach ($passive as $key => $value) {
+    		switch ($key) {
+    			case 'image':
+    				$newPassive[$key] = $this->filterImage($value);
+    				break;
+    			case 'sanitizedDescription':
+    				break;
+    			default:
+    				$newPassive[$key] = $value;
+    				break;
+    		}
+    	}
+    	return $newPassive;
+    }
+
+    private function filterImage(array $image){
+    	return $image['full'];
     }
 }

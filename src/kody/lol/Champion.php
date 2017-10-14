@@ -134,7 +134,7 @@ class Champion extends LolModel implements IChampion{
 		$this->setKey($response['key']);
 		$this->setName($response['name']);
 		$this->setTitle($response['title']);
-		$this->setImage($response['image']['full']);
+		$this->setImage($response['image']);
 		$this->setSpells($this->createSpells($response['spells']));
 		$this->setPassive($this->createPassive($response['passive']));
 	}

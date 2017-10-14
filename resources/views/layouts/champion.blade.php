@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div>
       <div class="championImg {{$borderColor}}" style="background-image: url({{$champion->getImage()}});">
-        <p class="championLevel {{$borderColor}}">6</p>
+       {{-- <p class="championLevel {{$borderColor}}">6</p> --}}
       </div>
       <div class="championDesc">
         <h4>{{$champion->getName()}}</h4>

@@ -9,7 +9,7 @@ interface IAbility{
 	public function getName();
 	public function setDescription($description);
 	public function getDescription();
-	public function setToolTip(string $toolTip, array $effectBurn);
+	public function setToolTip(string $toolTip);
 	public function getToolTip();
 	public function setImage($image);
 	public function getImage();

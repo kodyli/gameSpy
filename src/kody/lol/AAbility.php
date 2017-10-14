@@ -30,8 +30,8 @@ abstract class AAbility implements IAbility {
 	public function getToolTip(){
 	    return $this->toolTip;
 	}
-	public function setToolTip(string $toolTip, array $effectBurn){
-	    $this->toolTip =preg_replace('/<br><br>/', '<br>',  $this->parseToolTip($toolTip,$effectBurn));
+	public function setToolTip(string $toolTip){
+	    $this->toolTip =$toolTip;
 	    $this->setDemageType(DamageType::getDamageTypeCss($this->toolTip));
 	    return $this;
 	}
@@ -59,29 +59,9 @@ abstract class AAbility implements IAbility {
 	public function fillData(array $abilityDto){
 		$this->setName($abilityDto['name']);
 		$this->setDescription($abilityDto['description']);
-		$this->setImage($abilityDto['image']['full']);
+		$this->setImage($abilityDto['image']);
 		return $this;
 	}
 	protected abstract function getImageBaseUrl();
-	private function parseToolTip(string $toolTip, array $effectBurn){
-		if(count($effectBurn)>0){
-			$pattern ='|({{\s*)([a-z]+)([1-9]+)(\s*}})|';
-			//{{ e2 }}, matches[1]='{{ ';matches[2]='e';matches[3]='1';matches[4]=' }}';
-			$callBack = function($matches) use($effectBurn){
-				$text ="";
-				switch ($matches[2]) {
-					case 'e':
-						$index = intval($matches[3]);
-						$text=$effectBurn[$index];
-						break;
-					default:
-						# code...
-						break;
-				}
-				return $text;
-			};
-			$toolTip = preg_replace_callback($pattern,$callBack,$toolTip);
-		}
-		return $toolTip;
-	}
+
 }
