@@ -45,12 +45,12 @@ class LolController extends Controller {
     }
 
     public function champion($id){
-        /*$champion = new Champion();
+        $champion = new Champion();
         $champion->whereRegion('na1')
                     ->whereChampionId($id)
                     ->withTag('all')
                     ->send();
-        return view('champion')->with(['champion'=>$champion]);*/
-        return view('champion');
+        return view('champion')->with(['champion'=>$champion,'borderColor'=>'borderColorD9534F']);
+        //return view('champion');
     }
 }

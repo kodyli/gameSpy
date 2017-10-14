@@ -22,7 +22,7 @@
       <button type="button" class="close" style="font-size: 40px;" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div>
           <div class="championImg {{$borderColor}}" style="background-image: url({{$champion->getImage()}});">
-            <p class="championLevel {{$borderColor}}">6</p>
+            {{-- <p class="championLevel {{$borderColor}}">6</p> --}}
           </div>
           <div class="championDesc">
             <h3 class="modal-title" id="{{$champion->getKey()}}ModalLabel">{{$champion->getName()}}</h3>
