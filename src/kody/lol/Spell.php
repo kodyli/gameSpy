@@ -13,6 +13,7 @@ class Spell extends AAbility {
 	}
 
 	protected function getImageBaseUrl(){
+		return '';
 		return 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell';
 	}
 }

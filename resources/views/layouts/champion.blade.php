@@ -1,7 +1,7 @@
 <div class="panel panel-default" data-toggle="modal" data-target="#{{$champion->getKey()}}">
   <div class="panel-body">
     <div>
-      <div class="championImg {{$borderColor}}" style="background-image: url({{$champion->getImage()}});">
+      <div class="championImg {{$borderColor}}" style="background-image: url(/img/{{$champion->getKey()}}/{{$champion->getImage()}});">
        {{-- <p class="championLevel {{$borderColor}}">6</p> --}}
       </div>
       <div class="championDesc">
@@ -11,7 +11,7 @@
   </div>
   <div class="k-panel-body">
     @foreach ($champion->getAbilities() as $ability)
-    <img class="championAbility {{$ability->getDemageType()}}" src="{{$ability->getImage()}}" title="{{$ability->getName()}}">
+    <img class="championAbility {{$ability->getDemageType()}}" src="/img/{{$champion->getKey()}}/{{$ability->getImage()}}" title="{{$ability->getName()}}">
     @endforeach
   </div>
 </div>
@@ -21,7 +21,7 @@
       <div class="modal-header">
       <button type="button" class="close" style="font-size: 40px;" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div>
-          <div class="championImg {{$borderColor}}" style="background-image: url({{$champion->getImage()}});">
+          <div class="championImg {{$borderColor}}" style="background-image: url(/img/{{$champion->getKey()}}/{{$champion->getImage()}});">
             {{-- <p class="championLevel {{$borderColor}}">6</p> --}}
           </div>
           <div class="championDesc">
@@ -32,7 +32,7 @@
       @foreach ($champion->getAbilities() as $ability)
       <div class="modal-body">
        <h4>{{$ability->getName()}}</h4>
-       <img class="championAbility {{$ability->getDemageType()}}" src="{{$ability->getImage()}}" title="{{$ability->getName()}}">
+       <img class="championAbility {{$ability->getDemageType()}}" src="/img/{{$champion->getKey()}}/{{$ability->getImage()}}" title="{{$ability->getName()}}">
        <p>{!!$ability->getToolTip()!!}</p>
        <!-- <img style="width: 100%;" src="https://lolstatic-a.akamaihd.net/champion-abilities/images/0266_01.jpg" tabindex="-1"> -->
      </div>

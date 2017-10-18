@@ -11,6 +11,7 @@ class Passive extends AAbility {
 		parent::fillData($passiveDto);
 	}
 	protected function getImageBaseUrl(){
-		return 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive';
+		return '';
+		//return 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive';
 	}
 }

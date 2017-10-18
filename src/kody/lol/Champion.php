@@ -139,7 +139,8 @@ class Champion extends LolModel implements IChampion{
 		$this->setPassive($this->createPassive($response['passive']));
 	}
 	protected function getImageBaseUrl(){
-		return 'https://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/';
+		return '';
+		//return 'https://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/';
 	}
 	private function createSpells(array $championSpellDtos){
 		$spells =array();

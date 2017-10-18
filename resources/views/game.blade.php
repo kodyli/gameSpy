@@ -2,11 +2,10 @@
 <html lang='en'>
 <head>
 	<meta charset='utf-8'>
-	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<meta name='description' content=''>
+	<meta name='description' content='enemy champions information and abilities'>
 	<meta name='keywords' content='lol'>
-	<meta name='author' content='Yansan Li'>
+	<meta name='author' content='Kody Li'>
 	<title>Game Spy</title>
 	<script type='text/javascript' src='/js/app.js'></script>
 	<link rel='stylesheet' type='text/css' href='/css/app.css'>

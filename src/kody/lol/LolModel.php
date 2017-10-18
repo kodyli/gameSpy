@@ -5,7 +5,7 @@ use App\Src\Kody\Model;
 
 abstract class LolModel extends Model {
 	protected $domain ='https://{region}.api.riotgames.com';
-	protected $apiKey='RGAPI-827d9e1b-ab39-4a59-a7df-8458f0547935';
+	protected $apiKey='RGAPI-82beffb8-7ffd-4288-94c3-fccd7e53ef96';
 	
 	public function __construct(){
 		//partent::__construct();
