@@ -66,6 +66,7 @@ abstract class Model{
 						break;
 					case 404:
 						$msg = $msg."Data not found";
+						throw new GameNotFoundException();
 						break;
 					case 405:
 						$msg = $msg."Method not allowed";

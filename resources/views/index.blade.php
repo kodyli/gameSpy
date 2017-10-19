@@ -14,10 +14,10 @@
 	
 	<div class='row'>
 		<h2>The Sixth</h2>
-		<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp--help you find out the information of your enemy champions after the game starts in <span style='color:#E18200;'>LoL</span>.</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--help you find out the information of your enemy champions after the game starts in <span style='color:#E18200;'>LoL</span>.</p>
 	</div>
 	<div class='row'>
-		<form class='form-inline center-vertically col-md-offset-3 col-sm-8' method='GET' action='/getGameInfo'>
+		<form class='form-inline center-vertically col-md-offset-3 col-sm-8' method='POST' action='/getGameInfo'>
 		<div class="form-group">
 			<input name='summonerName' required type='text' class='form-control' id='summonerName' size ='40' placeholder='Your Summoner Name'>
 			<div class="input-group">
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<button id='submitBtn' type='submit' class='btn btn-default'>Go!</button>
-
+		{{csrf_field() }}
 		<!-- <div class='form-group'>
 			<label for='local' class='col-sm-2 control-label'>Language</label>
 			<div class='col-sm-10'>

@@ -79,10 +79,15 @@ class Game extends LolModel implements IGame {
 				array_push($team200["participants"], $participantObj);
 			}
 
-			if($team100["type"]==null&& $participantObj->getSummonerId()==$blueTeamFlag){
+			if($participantObj->getSummonerId()==$blueTeamFlag){
+				if($participantObj->getTeamId()==100){
 					$team100["type"]="A";
 					$team200["type"]="E";
+				}else{
+					$team100["type"]="E";
+					$team200["type"]="A";
 				}
+			}
 		}
 
 		if($team100["type"]=="A"){

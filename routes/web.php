@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', 'LolController@index');
-Route::get('/getGameInfo', 'LolController@getGameInfo');
+Route::post('/getGameInfo', 'LolController@getGameInfo');
 Route::get('/champion/{id}', 'LolController@champion');
 Route::get('/debug', 'LolController@debug');
 Route::get('/clearData', 'LolController@clearData');
