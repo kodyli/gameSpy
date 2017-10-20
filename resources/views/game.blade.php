@@ -9,6 +9,14 @@
 	<title>Game Spy</title>
 	<script type='text/javascript' src='/js/app.js'></script>
 	<link rel='stylesheet' type='text/css' href='/css/app.css'>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108360018-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-108360018-1');
+	</script>
 </head>
 <body>
 	<div style="background-image: url({{$game->getMap()->getImage()}});background-repeat: no-repeat;background-attachment: fixed; background-color: #0e0e0e;background-size:cover; background-position: center; height: 300px;width: 100%;">
@@ -18,14 +26,5 @@
 		@include('./layouts/enemies', ['enemies'=>$game->getRedTeam()])
 		@include('./layouts/allies', ['allies'=>$game->getBlueTeam()])
 	</div>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108360018-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-108360018-1');
-	</script>
 </body>
 </html>
