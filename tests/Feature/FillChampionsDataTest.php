@@ -12,7 +12,7 @@ use Ixudra\Curl\Facades\Curl;
 class FillChampionsDataTest extends TestCase{
  
     public function testInsert(){
-        $res = Curl::to('https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=allytips&tags=enemytips&tags=image&tags=keys&tags=passive&tags=spells&dataById=true&api_key=RGAPI-735b625f-8f62-49d6-939d-4ac9bb51158b')
+        $res = Curl::to('https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=allytips&tags=enemytips&tags=image&tags=keys&tags=passive&tags=spells&dataById=true&api_key=RGAPI-6a977c8b-e9c6-416f-bda5-03962d85e118')
 			->asJson(true)
 			->get();
 		$resData = $res['data'];
@@ -58,12 +58,16 @@ class FillChampionsDataTest extends TestCase{
 		$newSpell = array();
 		foreach ($spell as $key => $value) {
 			switch ($key) {
+				case 'description':
+					break;
 				case 'sanitizedDescription':
+					$newSpell['description']=$this->addClasses($value);
 					break;
 				case 'tooltip':
-					$newSpell[$key] = preg_replace('/<br><br>/', '<br>',  $this->parseToolTip($value,$spell['effectBurn']));
+					/*$newSpell[$key] = preg_replace('/<br><br>/', '<br>',  $this->parseToolTip($value,$spell['effectBurn']));*/
 					break;
 				case 'sanitizedTooltip':
+					$newSpell['tooltip'] =$this->addClasses($this->parseToolTip($value,$spell['effectBurn']));
 					break;
 				case 'leveltip':
 					break;
@@ -100,10 +104,33 @@ class FillChampionsDataTest extends TestCase{
 		return $newSpell;
 	}
 
+	private function addClasses(string $toolTip){
+		
+		$pattern1 ='|(physical\s+damage)|i';
+		$callBack1 = function($matches){
+			return '<span class=\'physicalDamage\'>'.$matches[1].'</span>';
+		};
+		$newToolTip = preg_replace_callback($pattern1,$callBack1,$toolTip);
+		
+		$pattern2 ='|(magic\s+damage)|i';
+		$callBack2 = function($matches){
+			return '<span class=\'magicDamage\'>'.$matches[1].'</span>';
+		};
+		$newToolTip = preg_replace_callback($pattern2,$callBack2,$newToolTip);
+
+		$pattern3 ='|(true\s+damage)|i';
+		$callBack3 = function($matches){
+			return '<span class=\'trueDamage\'>'.$matches[1].'</span>';
+		};
+		$newToolTip = preg_replace_callback($pattern3,$callBack3,$newToolTip);
+
+		return $newToolTip;
+	}
+
 	private function parseToolTip(string $toolTip, array $effectBurn){
 		$newToolTip = $toolTip;
 		if(count($effectBurn)>0){
-			$pattern ='|({{\s*)([a-z]+)([1-9]+)(\s*}})|';
+			$pattern ='|({{\s+)([a-z]+)([1-9]+)(\s+}})|';
 			//{{ e2 }}, matches[1]='{{ ';matches[2]='e';matches[3]='1';matches[4]=' }}';
 			$callBack = function($matches) use($effectBurn){
 				$text ="";
@@ -130,7 +157,10 @@ class FillChampionsDataTest extends TestCase{
     			case 'image':
     				$newPassive[$key] = $this->filterImage($value);
     				break;
+    			case 'description':
+    				break;
     			case 'sanitizedDescription':
+    				$newPassive['description'] =$this->addClasses($value);
     				break;
     			default:
     				$newPassive[$key] = $value;

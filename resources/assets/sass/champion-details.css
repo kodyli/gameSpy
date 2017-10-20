@@ -53,7 +53,15 @@
 .championAbility.trueDamage{
 	border-color:#800080;
 }
-
+span.physicalDamage{
+	color:#FF8C00;
+}
+span.magicDamage{
+	color:#1EC91A;
+}
+span.trueDamage{
+	color:#800080;
+}
 .modal-body .championAbility{
 	float: left;
 	margin:5px 10px 0px 0px;
@@ -62,17 +70,17 @@
 	border-style: solid;
 	border-radius: 4px;
 }
-.color99FF99,scaleAP{
+.color99FF99,.scaleAP{
 	color:#1EC91A;
 }
 .colorFF8C00,.colorF88017{
 	color:#FF8C00;
 }
 
-.colorFFFF99,.colorFF9900,spellActive{
+.colorFFFF99,.colorFF9900,.spellActive{
 	color: #E18200;
 }
-.color44DDFF,scaleMana{
+.color44DDFF,.scaleMana{
 	color: #44DDFF;
 }
 .borderColor3097D1{
