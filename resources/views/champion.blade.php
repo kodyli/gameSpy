@@ -18,7 +18,7 @@
       <h3 class="panel-title">Enemies</h3>
     </div>    
     <div class="panel-body">
-      @include('./layouts/champion', ['champion'=>$champion])
+      @include('./layouts/champion', ['champion'=>$champion,'teamType'=>'E'])
     </div> 
   </div>
 </body>

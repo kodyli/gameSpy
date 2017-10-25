@@ -12,7 +12,7 @@ use Ixudra\Curl\Facades\Curl;
 class FillChampionsDataTest extends TestCase{
  
     public function testInsert(){
-        $res = Curl::to('https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=allytips&tags=enemytips&tags=image&tags=keys&tags=passive&tags=spells&dataById=true&api_key=RGAPI-6a977c8b-e9c6-416f-bda5-03962d85e118')
+        $res = Curl::to('https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=allytips&tags=enemytips&tags=image&tags=info&tags=passive&tags=spells&tags=stats&dataById=false&api_key=RGAPI-3d71cb83-8172-4c9f-9be4-a525fe042384')
 			->asJson(true)
 			->get();
 		$resData = $res['data'];
@@ -31,6 +31,18 @@ class FillChampionsDataTest extends TestCase{
     	$values = array();
     	foreach ($temp_champion as $key => $value){
 			switch ($key) {
+				case 'id':
+					$values[$key] = $value;
+					break;
+				case 'name':
+					$values[$key] = $value;
+					break;
+				case 'title':
+					$values[$key] = $value;
+					break;
+				case 'key':
+					$values[$key] = $value;
+					break;
 	    		case 'image':
 	    			$values[$key] = $this->filterImage($value);
 	    			break;
@@ -40,8 +52,31 @@ class FillChampionsDataTest extends TestCase{
 	    		case 'passive':
 	    			$values[$key] = $this->filterPassive($value);
 	    			break;
+	    		case 'info':
+	    			foreach ($value as $infoKey => $infoValue) {
+	    				$values[$infoKey] = $infoValue;
+	    			}
+	    			break;
+	    		case 'stats':
+	    			foreach ($value as $statsKey => $statsValue) {
+	    				$values[$statsKey] = $statsValue;
+	    			}
+	    			break;
+	    		case 'allytips':
+	    			$allytips='';
+	    			foreach ($value as $allytip) {
+	    				$allytips = $allytips.$allytip;
+	    			}
+	    			$values[$key] = $allytips;
+	    			break;
+	    		case 'enemytips':
+	    			$enemytips='';
+	    			foreach ($value as $enemytip) {
+	    				$enemytips = $enemytips.$enemytip;
+	    			}
+	    			$values[$key] = $enemytips;
+	    			break;
 	    		default:
-	    			$values[$key] = $value;
 	    			break;
 	    	}
     	}
@@ -58,53 +93,54 @@ class FillChampionsDataTest extends TestCase{
 		$newSpell = array();
 		foreach ($spell as $key => $value) {
 			switch ($key) {
-				case 'description':
+				case 'name':
+					$newSpell[$key]=$value;
 					break;
+				case 'key':
+					$newSpell[$key]=$value;
+					break;					
 				case 'sanitizedDescription':
 					$newSpell['description']=$this->addClasses($value);
-					break;
-				case 'tooltip':
-					/*$newSpell[$key] = preg_replace('/<br><br>/', '<br>',  $this->parseToolTip($value,$spell['effectBurn']));*/
 					break;
 				case 'sanitizedTooltip':
 					$newSpell['tooltip'] =$this->addClasses($this->parseToolTip($value,$spell['effectBurn']));
 					break;
-				case 'leveltip':
-					break;
 				case 'image':
 					$newSpell[$key] =$this->filterImage($value);
 					break;
-				case 'resource':
-					break;
-				case 'maxrank':
-					break;
-				case 'cost':
-					break;
-				case 'costType':
-					break;
-				case 'costBurn':
-					break;
-				case 'cooldown':
-					break;
-				case 'cooldownBurn':
-					break;
-				case 'effect':
-					break;
-				case 'effectBurn':
-					break;
-				case 'vars':
-					break;
-				case 'range':
-					break;
 				default:
-					$newSpell[$key]=$value;
 					break;
 			}
 		}
 		return $newSpell;
 	}
 
-	private function addClasses(string $toolTip){
+    private function filterPassive(array $passive){
+    	$newPassive = array();
+    	foreach ($passive as $key => $value) {
+    		switch ($key) {
+    			case 'name':
+    				$newPassive[$key] = $value;
+    				break;
+    			case 'image':
+    				$newPassive[$key] = $this->filterImage($value);
+    				break;
+    			/*case 'description':
+    				break;*/
+    			case 'sanitizedDescription':
+    				$newPassive['description'] =$this->addClasses($value);
+    				break;
+    			default:
+    				break;
+    		}
+    	}
+    	return $newPassive;
+    }
+
+    private function filterImage(array $image){
+    	return $image['full'];
+    }
+    private function addClasses(string $toolTip){
 		
 		$pattern1 ='|(physical\s+damage)|i';
 		$callBack1 = function($matches){
@@ -126,7 +162,6 @@ class FillChampionsDataTest extends TestCase{
 
 		return $newToolTip;
 	}
-
 	private function parseToolTip(string $toolTip, array $effectBurn){
 		$newToolTip = $toolTip;
 		if(count($effectBurn)>0){
@@ -149,28 +184,4 @@ class FillChampionsDataTest extends TestCase{
 		}
 		return $newToolTip;
 	}
-
-    private function filterPassive(array $passive){
-    	$newPassive = array();
-    	foreach ($passive as $key => $value) {
-    		switch ($key) {
-    			case 'image':
-    				$newPassive[$key] = $this->filterImage($value);
-    				break;
-    			case 'description':
-    				break;
-    			case 'sanitizedDescription':
-    				$newPassive['description'] =$this->addClasses($value);
-    				break;
-    			default:
-    				$newPassive[$key] = $value;
-    				break;
-    		}
-    	}
-    	return $newPassive;
-    }
-
-    private function filterImage(array $image){
-    	return $image['full'];
-    }
 }

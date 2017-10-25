@@ -18,13 +18,16 @@
 	  gtag('config', 'UA-108360018-1');
 	</script>
 </head>
-<body>
+<body class='container'>
 	<div style="background-image: url({{$game->getMap()->getImage()}});background-repeat: no-repeat;background-attachment: fixed; background-color: #0e0e0e;background-size:cover; background-position: center; height: 300px;width: 100%;">
 	</div>
-	
-	<div class="row">
-		@include('./layouts/enemies', ['enemies'=>$game->getRedTeam()])
-		@include('./layouts/allies', ['allies'=>$game->getBlueTeam()])
+	<div class='row'>
+		<div class='col-lg-6 col-md-6 col-sm-12'>
+			@include('./layouts/enemies', ['enemies'=>$game->getRedTeam()])
+		</div>
+		<div class='col-lg-6 col-md-6 col-sm-12'>
+			@include('./layouts/allies', ['allies'=>$game->getBlueTeam()])
+		</div>
 	</div>
 </body>
 </html>

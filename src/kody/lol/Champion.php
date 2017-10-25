@@ -16,9 +16,39 @@ class Champion extends LolModel implements IChampion{
 	protected $key;
 	protected $spells;
 	protected $abilities=array();
+	protected $defense;
+	protected $magic;
+	protected $attack;
+
 
 	public function __construct(){}
-	
+
+	public function getDefense(){
+	    return $this->defense;
+	}
+	 
+	public function setDefense($defense){
+	    $this->defense = $defense;
+	    return $this;
+	}
+	public function getMagic(){
+	    return $this->magic;
+	}
+	 
+	public function setMagic($magic){
+	    $this->magic = $magic;
+	    return $this;
+	}
+
+	public function getAttack(){
+	    return $this->attack;
+	}
+	 
+	public function setAttack($attack){
+	    $this->attack = $attack;
+	    return $this;
+	}
+
 	public function getAbilities(){
 		if(count($this->abilities)==0){
 			$abilities = array();
@@ -137,6 +167,11 @@ class Champion extends LolModel implements IChampion{
 		$this->setImage($response['image']);
 		$this->setSpells($this->createSpells($response['spells']));
 		$this->setPassive($this->createPassive($response['passive']));
+		$this->setAttack($response['attack']);
+		$this->setMagic($response['magic']);
+		$this->setDefense($response['defense']);
+		$this->setAllyTips($response['allytips']);
+		$this->setEnemyTips($response['enemytips']);
 	}
 	protected function getImageBaseUrl(){
 		return '';
