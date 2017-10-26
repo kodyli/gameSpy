@@ -17,14 +17,14 @@ class LolController extends Controller {
     }
 
     public function getGameInfo(SearchRequest $searchRequest){
-        $summonerName = $searchRequest->input('summonerName'); 
+        /*$summonerName = $searchRequest->input('summonerName'); 
         if(!Cache::has($summonerName)){
             $game = $this->lolService->getGameInfo($searchRequest);
             Cache::put($summonerName,$game,200);
         } 
-        return view('game')->with(['game'=>Cache::get($summonerName)]);
-       /* $game = $this->lolService->getGameInfo($searchRequest);
-        return view('game')->with(['game'=>$game]);*/
+        return view('game')->with(['game'=>Cache::get($summonerName)]);*/
+       $game = $this->lolService->getGameInfo($searchRequest);
+        return view('game')->with(['game'=>$game]);
     }
 
     public function debug(SearchRequest $searchRequest){
