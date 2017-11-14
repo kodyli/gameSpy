@@ -5,6 +5,7 @@ use App\Src\Kody\Lol\AAbility;
 
 class Spell extends AAbility {
 	public function __construct(){
+		parent::__construct();
 	}
 
 	public function fillData(array $championSpellDto){

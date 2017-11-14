@@ -17,7 +17,9 @@ class Participant extends LolModel implements IParticipant{
 	protected $masteries;
 	protected $championLevel;
 	
-	public function __construct(){}
+	public function __construct(){
+		parent::__construct();
+	}
 
 	public function getChampionLevel(){
 	    return $this->championLevel;

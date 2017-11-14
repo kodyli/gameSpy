@@ -9,7 +9,7 @@ class Summoner extends LolModel implements ISummoner {
 	protected $name;
 
 	public function __construct(){
-		//parent::__construct();
+		parent::__construct();
 	}
 
 	public function setSummonerId(int $summonerId){

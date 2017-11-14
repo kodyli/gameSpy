@@ -13,13 +13,13 @@ class CreatePassivesTable extends Migration
      */
     public function up()
     {
-        Schema::create('passives', function (Blueprint $table) {
+        /*Schema::create('passives', function (Blueprint $table) {
             $table->increments('id');
-            /*$table->string('name');
+            $table->string('name');
             $table->string('description');
             $table->string('sanitizedDescription');
-            $table->integer('image_id');   */       
-        });
+            $table->integer('image_id');          
+        });*/
     }
 
     /**
@@ -29,6 +29,6 @@ class CreatePassivesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('passives');
     }
 }

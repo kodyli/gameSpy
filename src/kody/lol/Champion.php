@@ -21,7 +21,9 @@ class Champion extends LolModel implements IChampion{
 	protected $attack;
 
 
-	public function __construct(){}
+	public function __construct(){
+		parent::__construct();
+	}
 
 	public function getDefense(){
 	    return $this->defense;
@@ -63,6 +65,10 @@ class Champion extends LolModel implements IChampion{
 	public function setAbilities($abilities){
 	    $this->abilities = $abilities;
 	    return $this;
+	}
+	public function whereLocal(string $local){
+		$this->addHttpParams('local',$local);
+		return $this;
 	}
 	public function whereChampionId(int $championId){
 		$this->addUrlParam('id',$championId);
@@ -144,8 +150,10 @@ class Champion extends LolModel implements IChampion{
 	    return $this;
 	}
 	public function send(){
+
 		$championId = $this->getUrlParams()['id'];
-		$tempChampions = DB::select('select content from temp_champions where id = ?', [$championId]);
+		$local = $this->getHttpParams()['local'];
+		$tempChampions = DB::select('select content from temp_champions where id = ? and local = ?', [$championId , $local]);
 		if(count($tempChampions)<=0){
 			parent::send();
 		}else{

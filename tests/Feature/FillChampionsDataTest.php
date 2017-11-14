@@ -12,22 +12,39 @@ use Ixudra\Curl\Facades\Curl;
 class FillChampionsDataTest extends TestCase{
  
     public function testInsert(){
-        $res = Curl::to('https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=allytips&tags=enemytips&tags=image&tags=info&tags=passive&tags=spells&tags=stats&dataById=false&api_key=RGAPI-3d71cb83-8172-4c9f-9be4-a525fe042384')
+    	//$locals = array('en_US','zh_CN');
+    	//$locals = array('cs_CZ','de_DE');
+    	//$locals = array('el_GR','en_AU');
+    	//$locals = array('en_GB','en_PH');
+    	//$locals = array('en_SG','es_AR');
+    	//$locals = array('es_ES','es_MX');
+    	$locals = array('fr_FR','hu_HU');
+    	//$locals = array('id_ID','it_IT');
+    	//$locals = array('ja_JP','ko_KR');
+    	//$locals = array('ms_MY','pl_PL');
+    	//$locals = array('pt_BR','ro_RO');
+    	//$locals = array('ru_RU','tr_TR');
+    	//$locals = array('vn_VN','zh_TW');
+
+    	$api_key=config('lol.api_key');
+    	foreach ($locals as $local) {
+    		$res = Curl::to("https://na1.api.riotgames.com/lol/static-data/v3/champions?locale={$local}&tags=allytips&tags=enemytips&tags=image&tags=info&tags=passive&tags=spells&tags=stats&dataById=false&api_key={$api_key}")
 			->asJson(true)
 			->get();
-		$resData = $res['data'];
-		foreach ($resData as $key => $temp_champion){
-			$id = intval($temp_champion['id']);
-			$content = json_encode($this->filter($temp_champion));
-			DB::insert('insert into temp_champions (id, content) values (?, ?)', [$id, $content]);
-			$temp_champions = DB::select('select * from temp_champions where id = ?', [$id]);
-			$this->assertEquals($id,$temp_champions[0]->id);
-			$this->assertEquals($content,$temp_champions[0]->content);
-		}
-		
+			$resData = $res['data'];
+			foreach ($resData as $key => $temp_champion){
+				$id = intval($temp_champion['id']);
+				$content = json_encode($this->filter($temp_champion,$local));
+				DB::insert('insert into temp_champions (id, content, local) values (?, ?, ?)', [$id, $content, $local]);
+				$temp_champions = DB::select('select * from temp_champions where id = ? and local =?', [$id, $local]);
+				$this->assertEquals($id,$temp_champions[0]->id);
+				$this->assertEquals($content,$temp_champions[0]->content);
+				$this->assertEquals($local,$temp_champions[0]->local);
+			}
+    	}	
     }
 
-    private function filter(array $temp_champion){
+    private function filter(array $temp_champion, string $local='en_US'){
     	$values = array();
     	foreach ($temp_champion as $key => $value){
 			switch ($key) {
@@ -35,10 +52,23 @@ class FillChampionsDataTest extends TestCase{
 					$values[$key] = $value;
 					break;
 				case 'name':
-					$values[$key] = $value;
+					switch ($local) {
+						case 'zh_CN':
+							$values['title'] = $value;
+							break;
+						default:
+							$values[$key] = $value;
+							break;
+					}
 					break;
-				case 'title':
-					$values[$key] = $value;
+				case 'title':switch ($local) {
+						case 'zh_CN':
+							$values['name'] = $value;
+							break;
+						default:
+							$values[$key] = $value;
+							break;
+					}
 					break;
 				case 'key':
 					$values[$key] = $value;

@@ -5,10 +5,11 @@ use App\Src\Kody\Model;
 
 abstract class LolModel extends Model {
 	protected $domain ='https://{region}.api.riotgames.com';
-	protected $apiKey='RGAPI-fcde819c-d003-4405-b8b0-6bc87338df59';
+	protected $apiKey;
 	
 	public function __construct(){
-		//partent::__construct();
+		parent::__construct();
+		$this->apiKey = config('lol.api_key');
 	}
 
 	public function whereRegion(string $region){

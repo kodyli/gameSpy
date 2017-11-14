@@ -15,7 +15,8 @@ class LolService extends Service{
 		$region = $searchRequest->input('region');
 		$summonerName = $searchRequest->input('summonerName'); 
 		$summonerId = $this->getSummonerId($region,$summonerName);
-		return $this->getGame($region, $summonerId);
+		$local =$searchRequest->input('local');
+		return $this->getGame($region, $summonerId, $local);
 	}
 	public function getSummonerId(string $region, string $summonerName){
 		$summoner = new Summoner();
@@ -25,11 +26,11 @@ class LolService extends Service{
         return $summoner -> getSummonerId();
 	}
 
-	public function getGame(string $region, int $summonerId){
-		$game = new Game();
+	public function getGame(string $region, int $summonerId,string $local='en_US'){
+		$game = new Game($local);
 		$game ->whereRegion($region)
-    				->whereSummonerId($summonerId)
-    				->send();
+    		->whereSummonerId($summonerId)
+    		->send();
     	return $game;
 	}
 	public function getChampion(int $championId){

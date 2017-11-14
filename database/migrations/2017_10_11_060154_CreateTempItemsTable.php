@@ -13,11 +13,11 @@ class CreateTempItemsTable extends Migration
      */
     public function up()
     {
-       Schema::create('temp_items', function (Blueprint $table) {
+       /*Schema::create('temp_items', function (Blueprint $table) {
            $table->primary('id');
             $table->integer('id')->unsigned();
             $table->text('content');    
-        });
+        });*/
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateTempItemsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('temp_items');
     }
 }

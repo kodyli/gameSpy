@@ -2,14 +2,14 @@
   <header class='media panel-body'>
     <section class='media-left media-middle'>
         <div class="championImg {{$borderColor}}" style="background-image: url(/img/{{$champion->getKey()}}/{{$champion->getImage()}});">
-          <p class="championLevel {{$borderColor}}">6</p>
+          {{--<p class="championLevel {{$borderColor}}">6</p>--}}
         </div>
     </section>
     <article class='media-body' style='padding-left: 15px;'>
       <h4>{{$champion->getName()}}</h4>
       <section class='row'>
         <p class='col-lg-4 col-md-4 col-sm-12'>
-          <a href='#'><acronym title='Defense'>Defense</acronym>: <span class='badge'>{{$champion->getDefense()}}</span></a>
+          <a href='#'><acronym title='Defense'>De</acronym>: <span class='badge'>{{$champion->getDefense()}}</span></a>
         </p>
         <p class='col-lg-3 col-md-3 col-sm-12'>
           <a href='#'><acronym title='Attack Demage'>AD</acronym>: <span class='badge physicalDamage'>{{$champion->getAttack()}}</span></a>

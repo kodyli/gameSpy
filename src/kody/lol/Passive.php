@@ -2,7 +2,9 @@
 namespace App\Src\Kody\Lol;
 
 class Passive extends AAbility {
-	public function __construct(){}
+	public function __construct(){
+		parent::__construct();
+	}
 
 	public function setDescription($description){
 		return parent::setDescription($description)->setToolTip($description,array());

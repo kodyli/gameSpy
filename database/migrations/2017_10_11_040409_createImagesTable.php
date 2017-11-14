@@ -13,16 +13,16 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-       Schema::create('images', function (Blueprint $table) {
+      /* Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            /*$table->string('full');
+            $table->string('full');
             $table->string('group');
             $table->string('sprite');
             $table->integer('h');
             $table->integer('w'); 
             $table->integer('y'); 
-            $table->integer('x');  */    
-        });
+            $table->integer('x');      
+        });*/
     }
 
     /**
@@ -32,6 +32,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('images');
     }
 }

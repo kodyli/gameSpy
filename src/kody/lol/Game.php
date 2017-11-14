@@ -15,9 +15,10 @@ class Game extends LolModel implements IGame {
 
 	protected $team1;
 	protected $team2;
-
-	public function __construct(){
-		//parent::__construct();
+	protected $local;
+	public function __construct(string $local){
+		parent::__construct();
+		$this->local = $local;
 	}
 
 	public function getPlatformId(){
@@ -116,6 +117,7 @@ class Game extends LolModel implements IGame {
 		$champion = new Champion();
 		$champion->whereRegion($this->getPlatformId())
 				->whereChampionId($championId)
+				->whereLocal($this->local)
 				->withTag('all')
 				->send();
 		return $champion;

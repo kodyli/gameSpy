@@ -13,10 +13,12 @@ class CreateTempChampionsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('temp_champions');
         Schema::create('temp_champions', function (Blueprint $table) {
-           $table->primary('id');
+            $table->primary(['id','local']);
             $table->integer('id')->unsigned();
-            $table->text('content');    
+            $table->string('local');
+            $table->text('content');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateTempChampionsTable extends Migration
      */
     public function down()
     {
-        //
+       Schema::dropIfExists('temp_champions');
     }
 }

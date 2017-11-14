@@ -9,7 +9,7 @@ class Map extends LolModel implements IMap {
 	protected $image;
 
 	public function __construct(){
-		//parent::__construct();
+		parent::__construct();
 	}
 	public function setName(string $name){
 		$this->name = $name;

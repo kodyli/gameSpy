@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Http\Services\LolService;
@@ -8,8 +8,10 @@ use App\Http\Requests\SearchRequest;
 use App\Src\Kody\Lol\Champion;
 class LolController extends Controller {
     protected $lolService;
-	public function __construct(LolService $lolService){
+    protected $app;
+	public function __construct(LolService $lolService, Application $app){
 		$this->lolService=$lolService;
+        $this->app = $app;
 	}
 
     public function index(){
@@ -17,14 +19,20 @@ class LolController extends Controller {
     }
 
     public function getGameInfo(SearchRequest $searchRequest){
-        /*$summonerName = $searchRequest->input('summonerName'); 
-        if(!Cache::has($summonerName)){
+        if($this->app->environment('local')){
+            $summonerName = $searchRequest->input('summonerName');
+            $region = $searchRequest->input('region');
+            $local =$searchRequest->input('local');
+            $key = uniqid("{$summonerName}_{$region}_{$local}");
+            if(!Cache::has($key)){
+                $game = $this->lolService->getGameInfo($searchRequest);
+                Cache::put($key,$game,200);
+            } 
+            return view('game')->with(['game'=>Cache::get($key)]);
+        }else{
             $game = $this->lolService->getGameInfo($searchRequest);
-            Cache::put($summonerName,$game,200);
-        } 
-        return view('game')->with(['game'=>Cache::get($summonerName)]);*/
-       $game = $this->lolService->getGameInfo($searchRequest);
-        return view('game')->with(['game'=>$game]);
+            return view('game')->with(['game'=>$game]);
+        }
     }
 
     public function debug(SearchRequest $searchRequest){
@@ -33,7 +41,6 @@ class LolController extends Controller {
             $game = $this->lolService->getGameInfo($searchRequest);
             Cache::put($summonerName,$game,200);
         }
-        
         return view('debug')->with(['game'=>Cache::get($summonerName)]);
        /* $game = $this->lolService->getGameInfo($searchRequest);
         return view('debug')->with(['game'=>$game]);*/
